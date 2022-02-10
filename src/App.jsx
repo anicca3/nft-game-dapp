@@ -80,6 +80,17 @@ const App = () => {
     }
   };
 
+  const checkNetwork = async () => {
+    try { 
+      console.log(window.ethereum.networkVersion)
+      if (window.ethereum.networkVersion !== '4') {
+        alert("Please connect to Rinkeby!")
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  };
+
   // Render Methods
   const renderContent = () => {
     if (isLoading) {
@@ -116,16 +127,9 @@ const App = () => {
     }
   };
 
+
   useEffect(() => {
-    const checkNetwork = async () => {
-      try { 
-        if (window.ethereum.networkVersion !== '4') {
-          alert("Please connect to Rinkeby!")
-        }
-      } catch(error) {
-        console.log(error)
-      }
-    };
+    checkNetwork();
     setIsLoading(true);
     checkIfWalletIsConnected();
   }, []);
